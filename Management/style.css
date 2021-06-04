@@ -1,0 +1,263 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 30% 40% 30%;	
+}
+
+main {
+    width: 100%; 
+    background-color: #00923f;
+    overflow-y: hidden;
+}
+
+aside {
+    color: #00923f;
+}
+
+.view{
+    padding: 10%;
+    color: #fff;;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+}
+
+.view li {
+    font-size: 20px;
+    list-style: none;
+}
+
+.avatar{
+    height: 100px;
+    width: 100px;
+    margin: auto;
+    border-radius: 50%;
+}
+
+.list{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    overflow-y: hidden;  
+}
+
+.orders {
+    scrollbar-width: thin;          /* "auto" or "thin" */
+    scrollbar-color: green rgb(217, 238, 227);   /* scroll thumb and track */
+}
+
+.orders {
+    height: 95%;
+    width: 100%;
+    overflow-y: auto;   
+    font-weight: bold;
+    color: #fff;
+    margin: 10px 0px 0px 0px;
+    /* display: inline-block;  */
+	text-align: center;
+}
+
+.item{
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+	text-align: left; 
+    font-size: .5em;
+    padding: 10px;
+    background: rgb(217, 238, 227);
+    border-bottom: 1px solid #34495E;
+    color: #00923f;
+}
+
+.item img {
+    padding: 5px;
+    width: 80px;
+    height: 70px;
+    filter: drop-shadow(5px 5px 5px #34495E);
+}
+
+.item h2{  
+    padding: 10px;
+    padding-left: 20px;
+}
+
+.item h2:first-of-type {  
+    padding-left: 30px;
+}
+
+.c_total{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.center {
+    margin-top: 100px;
+    text-align: center;
+}
+.head {
+    padding: 10px;
+    color: white;
+    background-color: #00923f;
+}
+
+table {
+    table-layout:fixed;
+}
+
+.table {
+    height: 100%;
+}
+.tablewrap{
+    height: 90%;
+    overflow-y: auto;
+}
+
+tr {
+    background: #00923f; 
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+td{
+    overflow: auto;
+    border-right: solid 1px #999; 
+}
+
+.row td {
+    border: none;
+    font-size: 15px;
+    font-weight: bold; 
+}
+
+.row {
+    background: #0cb856; 
+}
+
+.row:hover {
+    background: #999; 
+}
+
+.row_open {
+    background: #0cb856; 
+}
+
+.row_open td {
+    border: none;
+    font-size: 14px;
+    font-weight: bold; 
+}
+
+.row_open:hover {
+    background: rgb(7, 153, 7); 
+}
+
+table { 
+	width: 100%; 
+	border-collapse: collapse; 
+}
+
+th { 
+    background: #00923f; 
+    color: white; 
+    font-weight: bold; 
+}
+
+td, th { 
+	padding: 5px; 
+    text-align: left; 
+	font-size: 14px;
+}
+
+.rowhead td {
+    border: none;
+    font-size: 13px;
+    height: 20px;
+    background: #fff; 
+	font-weight: bold;
+	color: green;
+}
+
+.dt td{
+    font-size: 13px;
+    height: 20px;
+	background-color: #fff;
+	font-weight: bold;
+	color: green;
+}
+
+.total td {
+    background: crimson; 
+    color: #fff;
+}
+
+.btnedit {
+    font-size: 10px;
+    font-weight: bold;
+    color: #fff !important;
+	text-transform: uppercase;
+	text-decoration: none;
+	background: crimson;
+	padding: 6px 8px;
+	border-radius: 5px;
+	border: none;
+	transition: all 0.4s ease 0s;
+    cursor: pointer;
+}
+
+.btnmain {
+    font-size: 17px;
+    padding: 10px 15px;
+    width: 250px;
+    transform: translateX(90px);
+}
+
+.btnedit:hover{
+    background: #434343;
+	letter-spacing: 1px;
+	-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+	-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+	box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+	transition: all 0.4s ease 0s;
+}
+
+.paid {
+    font-size: 9px;
+    font-weight: bold;
+    color: #fff !important;
+	text-transform: uppercase;
+	text-decoration: none;
+	background: royalblue;
+	padding: 6px 8px;
+	border-radius: 5px;
+	border: none;
+	transition: all 0.4s ease 0s;
+    cursor: pointer;
+}
+
+.paid:hover{
+    background: #434343;
+	letter-spacing: 1px;
+	-webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+	-moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+	box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+	transition: all 0.4s ease 0s;
+}
+
+
+
