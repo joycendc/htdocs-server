@@ -1,7 +1,4 @@
 <?php
-
-
-
 if(!function_exists('db')){
     function db(){
         require "db.php";
@@ -20,7 +17,5 @@ function getData($query){
     if($stmt->num_rows > 0){
         return $stmt;
     }
-
 }
-
 ?>

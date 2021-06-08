@@ -5,15 +5,14 @@ $response = array();
 if(isset($_GET['apicall'])){
     switch($_GET['apicall']){
         case 'signup':
-            if(isTheseParametersAvailable(array('fname','lname','mobile','email', 'password'))){
+            if(isTheseParametersAvailable(array('fname','lname','mobile'))){
                 $fname = $_POST['fname'];
                 $lname = $_POST['lname'];
                 $mobile = $_POST['mobile'];
-                $email = $_POST['email'];
-                $password = $_POST['password'];
+            
 
-                $stmt = $conn->prepare("SELECT id FROM customer WHERE email=?;");
-                $stmt->bind_param("s", $email);
+                $stmt = $conn->prepare("SELECT id FROM customer WHERE mobile_number=?;");
+                $stmt->bind_param("s", $mobile);
                 $stmt->execute();
                 $stmt->store_result();  
 
@@ -22,15 +21,15 @@ if(isset($_GET['apicall'])){
                     $response['message'] = 'User already registered';
                     $stmt->close();
                 }else{
-                    $stmt = $conn->prepare("INSERT INTO customer (first_name, last_name, mobile_number, password, email) VALUES (?, ?, ?, ?, ?);");
-                    $stmt->bind_param("sssss", $fname , $lname, $mobile, $password, $email);
+                    $stmt = $conn->prepare("INSERT INTO customer (first_name, last_name, mobile_number) VALUES (?, ?, ?);");
+                    $stmt->bind_param("sss", $fname , $lname, $mobile);
 
                     if($stmt->execute()){
-                        $stmt = $conn->prepare("SELECT id, first_name, last_name, mobile_number, password, email FROM customer WHERE email=?;");
-                        $stmt->bind_param("s", $email);
+                        $stmt = $conn->prepare("SELECT id, first_name, last_name, mobile_number FROM customer WHERE mobile_number=?;");
+                        $stmt->bind_param("s", $mobile);
                         $stmt->execute();
 
-                        $stmt->bind_result($id, $fname , $lname, $mobile, $password, $email);
+                        $stmt->bind_result($id, $fname , $lname, $mobile);
                         $stmt->fetch();
 
                         $user = array(
@@ -38,8 +37,6 @@ if(isset($_GET['apicall'])){
                             'fname'=>$fname,
                             'lname'=>$lname,
                             'mobile'=>$mobile,
-                            'password'=>$password,
-                            'email'=>$email
                         );
                         $stmt->close();
 
@@ -54,16 +51,16 @@ if(isset($_GET['apicall'])){
             }
         break;
         case 'login':
-            if(isTheseParametersAvailable(array('email', 'password'))){
-                $email = $_POST['email'];
-                $password = $_POST['password'];
-
-                $stmt = $conn->prepare("SELECT id, first_name, last_name, mobile_number, password, email FROM customer WHERE email=? AND password=?;");
-                $stmt->bind_param("ss", $email, $password);
+            if(isTheseParametersAvailable(array('mobile'))){
+                $mobile = $_POST['mobile'];
+            
+               
+                $stmt = $conn->prepare("SELECT id, first_name, last_name, mobile_number FROM customer WHERE mobile_number=?;");
+                $stmt->bind_param("s", $mobile);
                 $stmt->execute();
                 $stmt->store_result();
                 if($stmt->num_rows > 0){
-                    $stmt->bind_result($id, $fname , $lname, $mobile, $password, $email);
+                    $stmt->bind_result($id, $fname , $lname, $mobile);
                     $stmt->fetch();
 
                     $user = array(
@@ -71,8 +68,6 @@ if(isset($_GET['apicall'])){
                         'fname'=>$fname,
                         'lname'=>$lname,
                         'mobile'=>$mobile,
-                        'password'=>$password,
-                        'email'=>$email
                     );
                     
                     $response['error'] = false;
@@ -80,7 +75,7 @@ if(isset($_GET['apicall'])){
                     $response['user'] = $user;
                 }else{
                     $response['error'] = false;
-                    $response['message'] = 'Invalid email or password';
+                    $response['message'] = 'Invalid Number';
                 }
             }
         break;

@@ -1,6 +1,4 @@
-
 $(".btnedit").click( e =>{
-   
     data = e.target.dataset.id;
 
     if (confirm('Really?')) {
@@ -16,7 +14,6 @@ $(".btnedit").click( e =>{
 });
 
 $(".paid").click( e =>{
-    
     data = e.target.dataset.id;
 
     if (confirm('Really?')) {
