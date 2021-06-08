@@ -4,7 +4,7 @@ $id = $_POST['id'];
 if(isset($_POST['type'])){
     switch ($_POST['type']) {
         case 'remove':
-            $db->query("INSERT INTO transaction (queue_id, customer_id, customer_name, item_name, qty, price, total, date, status)
+            $db->query("INSERT INTO transactions (queue_id, customer_id, customer_name, item_name, qty, price, total, date, status)
                         SELECT queue_id, customer_id, customer_name, item_name, qty, price, total, date, status
                         FROM orders
                         WHERE customer_id=?;", $id);

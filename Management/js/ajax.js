@@ -1,14 +1,20 @@
 
 $(document).on('click','#btn-add',function(e) {
-    var data = $("#product_form").serialize();
+    // var data = $("#product_form").serialize();
+    // console.log(data)
+    var form = $("#product_form");
+    var formData = new FormData(form[0]);
     $.ajax({
-        data: data,
+        data: formData,
         type: "POST",
         url: "./backend/product.php",
-        success: function(dataResult){
+        processData: false,
+        contentType: false,
+        success: function(dataResult){     
+             
             var dataResult = JSON.parse(dataResult);
-            console.log(dataResult);
-            if(dataResult.statusCode==200){
+
+            if(dataResult.statusCode==200){               
                 $('#addProductModal').modal('hide');
                 alert('Data added successfully !'); 
                 location.reload();						
@@ -16,7 +22,7 @@ $(document).on('click','#btn-add',function(e) {
             else if(dataResult.statusCode==201){
                 alert(dataResult);
             }
-        }
+        },
     });
 });
 
@@ -68,7 +74,7 @@ $(document).on("click", ".delete", function() {
 });
 $(document).on("click", "#delete", function() { 
     $.ajax({
-        url: "backend/save.php",
+        url: "./backend/product.php",
         type: "POST",
         cache: false,
         data:{
@@ -76,7 +82,8 @@ $(document).on("click", "#delete", function() {
             id: $("#id_d").val()
         },
         success: function(dataResult){
-                $('#deleteEmployeeModal').modal('hide');
+                console.log(dataResult)   
+                $('#deleteProductModal').modal('hide');
                 $("#"+dataResult).remove();
         
         }

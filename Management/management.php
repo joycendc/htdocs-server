@@ -17,18 +17,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Management</title>
+    <title>Product Management</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+	<link rel="stylesheet" href="./styles/fontawesome.min.css">
+	<link rel="stylesheet" href="./styles/bootstrap.min.css">
 	<link rel="stylesheet" href="./styles/style.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
 	<script src="./js/ajax.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 </head>
 <body>
-<div class="container">
+<div class="">
 	<p id="success"></p>
         <div class="table-wrapper">
             <div class="table-title">
@@ -38,18 +42,18 @@
 					</div>
 					<div class="col-sm-6">
 						<a href="#addProductModal" class="btn btn-success" data-toggle="modal"><i class="material-icons"></i> <span>Add New Product</span></a>
-					
 					</div>
                 </div>
             </div>
+		
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
 						<th>
-							<span class="custom-checkbox">
+							<!-- <span class="custom-checkbox">
 								<input type="checkbox" id="selectAll">
 								<label for="selectAll"></label>
-							</span>
+							</span> -->
 						</th>
                         <th>IMAGE</th>
                         <th>NAME</th>
@@ -68,13 +72,12 @@
                     foreach ($products as $product){
 				?>
 				<tr id="<?php echo $product["id"]; ?>">
-				<td>
-							<span class="custom-checkbox">
-								<input type="checkbox" class="user_checkbox" data-user-id="<?php echo $row["id"]; ?>">
-								<label for="checkbox2"></label>
-							</span>
-						</td>
-
+					<td>
+						<!-- <span class="custom-checkbox">
+							<input type="checkbox" class="user_checkbox" data-user-id="<?php echo $row["id"]; ?>">
+							<label for="checkbox2"></label>
+						</span> -->
+					</td>
 					<td><img class="foodImg" src="../Giligans/images/<?php echo $product["url"]; ?>" alt="Food"/></td>
 					<td><?php echo $product["name"]; ?></td>
 					<td><?php echo $product["description"]; ?></td>
@@ -107,12 +110,25 @@
 	<div id="addProductModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form id="product_form">
+				<form id="product_form" enctype="multipart/form-data">
 					<div class="modal-header">						
 						<h4 class="modal-title">Add Product</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 					</div>
-					<div class="modal-body">					
+					<div class="modal-body">	
+						<div class="form-group">
+							<label>Upload Image</label>
+							<div class="input-group">
+								<input type="text" id="url" name="url" class="form-control" readonly>
+								<span class="input-group-btn">
+									<span class="btn btn-default btn-file">
+										Browse… <input type="file" id="image" name="image" class="form-control">
+									</span>
+								</span>
+							</div>
+							<img class="center" id='img-upload'/>
+						
+						</div>
 						<div class="form-group">
 							<label>Name</label>
 							<input type="text" id="name" name="name" class="form-control" required>
@@ -217,5 +233,36 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+	$(document).ready( function() {
+    	$(document).on('change', '.btn-file :file', function() {
+		var input = $(this),
+			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		input.trigger('fileselect', [label]);
+		});
+		$('.btn-file :file').on('fileselect', function(event, label) {	    
+		    var input = $(this).parents('.input-group').find(':text'),
+		        log = label;   
+		    if( input.length ) {
+		        input.val(log);
+		    } else {
+		        if( log ) alert(log);
+		    }
+		});
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();	        
+		        reader.onload = function (e) {
+		            $('#img-upload').attr('src', e.target.result);
+		        }	        
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+		$("#image").change(function(){
+		    readURL(this);
+		}); 	
+	});
+	</script>
 </body>
 </html>
