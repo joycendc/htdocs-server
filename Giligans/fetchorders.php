@@ -4,9 +4,9 @@ if(mysqli_connect_errno()){
     die('error '.mysqli_connect_error());
 }
 
-$stmt = $conn->prepare("SELECT queue_id, id, customer_id, customer_name FROM orders WHERE status=1 GROUP BY customer_id ORDER BY id;");
+$stmt = $conn->prepare("SELECT queue_id, id, customer_id, customer_name, status FROM orders GROUP BY customer_id ORDER BY id;");
 $stmt->execute();
-$stmt->bind_result($queue_id, $id, $customer_id, $customer_name);
+$stmt->bind_result($queue_id, $id, $customer_id, $customer_name, $status);
 
 $orders = array();
 
@@ -17,6 +17,7 @@ while($stmt->fetch()){
     $temp['id'] = $id;
     $temp['customer_id'] = $customer_id;
     $temp['customer_name'] = $customer_name;
+    $temp['status'] = $status;
 
     array_push($orders, $temp);
 }

@@ -15,8 +15,8 @@ if(isset($_POST['type'])){
 
             $mobile = $number[0]['mobile_number'];
 
-            $apicode = "TR-CEPIE180472_1E94B";
-            $passwd = "%cmh5lj4mj";
+            $apicode = "TR-JOHND387115_X4NGW";
+            $passwd = "nhhzwenkkj";
             $message = "YOUR ORDER IS READY PLEASE PROCEED TO COUNTER IMMDIATELY";
 
             // $result = notifyCustomer($mobile, $message, $apicode, $passwd);
