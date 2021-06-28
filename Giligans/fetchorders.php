@@ -4,20 +4,22 @@ if(mysqli_connect_errno()){
     die('error '.mysqli_connect_error());
 }
 
-$stmt = $conn->prepare("SELECT queue_id, id, customer_id, customer_name, status FROM orders GROUP BY customer_id ORDER BY id;");
+$customer_id = $_POST['customer_id'];
+
+$stmt = $conn->prepare("SELECT item_name, price, qty, total FROM (SELECT item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;");
+$stmt->bind_param("s", $customer_id);
 $stmt->execute();
-$stmt->bind_result($queue_id, $id, $customer_id, $customer_name, $status);
+$stmt->bind_result($item_name, $price, $qty, $total);
 
 $orders = array();
 
 while($stmt->fetch()){
     $temp = array();
     
-    $temp['queue_id'] = $queue_id;
-    $temp['id'] = $id;
-    $temp['customer_id'] = $customer_id;
-    $temp['customer_name'] = $customer_name;
-    $temp['status'] = $status;
+    $temp['item_name'] = $item_name;
+    $temp['price'] = $price;
+    $temp['qty'] = $qty;
+    $temp['total'] = $total;
 
     array_push($orders, $temp);
 }

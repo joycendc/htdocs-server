@@ -12,7 +12,7 @@
         <li class="orders">
             <?php      
             $total = 0;            
-            $orders = $db->query("SELECT item_name, price, qty, total FROM orders WHERE customer_id=?;", $current['customer_id'])->fetchAll(); 
+            $orders = $db->query("SELECT item_name, price, qty, total FROM (SELECT item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;", $current['customer_id'])->fetchAll(); 
             foreach ($orders as $order): 
                 $total += $order['total'];
                 $getitem = $db->query("SELECT url FROM items WHERE name=?;", $order['item_name'])->fetchAll(); 
