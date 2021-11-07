@@ -7,7 +7,7 @@
     <title>Download App</title>
     <style>
         body{
-            background-color: #00923f;;
+            background-color: #fff;
             height: 100vh;
             width: 100vw;
             display: grid;
@@ -19,7 +19,7 @@
             display: grid;
             justify-content: center;
             align-items: center;
-            color: #000;
+            color: #0f878e;
         }
 
         img {
@@ -28,6 +28,7 @@
         a{
             text-decoration: none;
             color: #fff;
+            padding: 20px 140px;
         }
         
         button {
@@ -35,8 +36,8 @@
             color: #fff !important;
             text-transform: uppercase;
             text-decoration: none;
-            background: crimson ;
-            padding: 20px 30px;
+            background: #0f878e;
+            padding: 20px 0px;
             border-radius: 5px;
             display: inline-block;
             border: none;
@@ -56,9 +57,9 @@
 </head>
 <body>
 <div class="view">
-    <img src="/Giligans/images/logo.svg"/>
-    <h1>Download Giligans App</h1>
-    <button><a href="/app-debug.apk">Download</a></button>
+    <img src="/API/images/logo.svg"/>
+    <h1>Download FoodQueue App</h1>
+    <button><a href="/app-debugs.apk">Download</a></button>
 </div>
 </body>
 </html>

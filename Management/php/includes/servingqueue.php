@@ -15,11 +15,11 @@
             $customers = $db->query("SELECT date, customer_id, customer_name, status FROM orders WHERE customer_id!=? AND status=1 GROUP BY customer_id ORDER BY id;", $current_cid)->fetchAll();
         ?>         
         <div class="tablewrap"> 
-        <table>
+            <table>
             <thead>
                 <tr>    
-                    <th colspan="2" >Date</th>
-                    <th colspan="2" >Name</th>
+                    <th >Date</th>
+                    <th colspan="2">Name</th>
                     <th>Status</th> 
                     <th>Done</th>              
                 </tr>
@@ -30,11 +30,11 @@
               if (!empty($customers)) {
                   foreach ($customers as $customer): ?>
               <tr data-toggle="toggle" class="row"> 
-                  <td colspan="2" data-id="<?php echo $customer['date']; ?>"><?php echo date("M d-h:i A", strtotime($customer['date'])); ?></td>                                                   
+                  <td data-id="<?php echo $customer['date']; ?>"><?php echo date("h:i A", strtotime($customer['date'])); ?></td>                                                   
                   <td colspan="2" data-id="<?php echo $customer['customer_name']; ?>"><?php echo $customer['customer_name']; ?></td>   
                   <td><?php 
                     if($customer['status'] == 1){
-                        echo "Paid";
+                        echo "<i class='fas fa-money-bill'></i>Paid";
                     }else{
                        echo "<button data-id='{$customer['customer_id']}' name='paid' class='paid'>Mark as Paid/button>";
                     }
@@ -45,7 +45,7 @@
               <tbody class="hide">
                   <!-- <tr class="rowhead"><td></td><td colspan="3">ORDERS</td></tr> -->
                   <tr class="rowhead">                                                                                                                      
-                      <td colspan="3" ><?php echo "Item"; ?></td>    
+                      <td colspan="2" ><?php echo "Item"; ?></td>    
                       <td><?php echo "Price"; ?></td>                                                                                                   
                       <td><?php echo "Qty"; ?></td>                                                                                                                       
                       <td><?php echo "Total"; ?></td>                                                                                                                       
@@ -57,13 +57,13 @@
                     $total += $order['total'];
                   ?>
                   <tr class="dt">                                                                                                                   
-                      <td colspan="3" ><?php echo $order['item_name']; ?></td>  
+                      <td colspan="2" ><?php echo $order['item_name']; ?></td>  
                       <td><?php echo $order['price']; ?></td>  
                       <td><?php echo $order['qty']; ?></td>  
                       <td>&nbsp;&nbsp;<?php echo $order['total']; ?></td>                                                                                                                                                 
                   </tr>
                   <?php endforeach; ?>
-                  <tr class="rowhead total"><td colspan="4" >TOTAL</td><td>₱</td><td> <?php echo $total; ?></td>  </tr>       
+                  <tr class="rowhead total"><td colspan="3" >TOTAL</td><td>₱</td><td> <?php echo $total; ?></td>  </tr>       
               </tbody>         
               <?php endforeach;
               } ?>    
