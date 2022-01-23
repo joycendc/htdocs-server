@@ -14,6 +14,16 @@
 
             $customers = $db->query("SELECT date, customer_id, customer_name, status FROM orders WHERE customer_id!=? AND status=1 GROUP BY customer_id ORDER BY id;", $current_cid)->fetchAll();
         ?>         
+        <div class="overlay" id="dialog-container">
+            <div class="popup">
+              <p class="popup_title"></p>
+              <div class="text-right">
+                <button class="dialog-btn btn-cancel" id="cancel">CANCEL</button>
+                <button class="dialog-btn btn-primary" id="confirm">OK</button>
+              </div>
+            </div>
+        </div>
+
         <div class="tablewrap"> 
             <table>
             <thead>
@@ -42,8 +52,11 @@
                     </td>  
                   <td><button data-id="<?php echo $customer['customer_id']; ?>" name="remove" class="btnedit">Done</button></td>
               </tr>
+              <?php
+                $orders = $db->query("SELECT note, item_name, price, qty, total FROM (SELECT note, item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;", $customer['customer_id'])->fetchAll(); 
+              ?>
               <tbody class="hide">
-                  <!-- <tr class="rowhead"><td></td><td colspan="3">ORDERS</td></tr> -->
+                <tr class="rowhead note"><td colspan="5">---  <?php echo $orders[0]['note']; ?>  ---</td></tr>
                   <tr class="rowhead">                                                                                                                      
                       <td colspan="2" ><?php echo "Item"; ?></td>    
                       <td><?php echo "Price"; ?></td>                                                                                                   
@@ -52,7 +65,6 @@
                   </tr>
                   <?php
                   $total = 0;
-                  $orders = $db->query("SELECT item_name, price, qty, total FROM (SELECT item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;", $customer['customer_id'])->fetchAll();
                   foreach ($orders as $order): 
                     $total += $order['total'];
                   ?>

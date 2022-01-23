@@ -6,6 +6,7 @@ $customer_id = $_POST['customer_id'];
 $customer_name = $_POST['customer_name'];
 $orderlist = $_POST['orderlist'];
 $type = $_POST['type'];
+$note = $_POST['note'];
 $isSenior = $_POST['senior'];
 
 $orderarray = json_decode($orderlist, true);
@@ -32,32 +33,30 @@ if($stmt->num_rows > 0){
     if ($stmt->num_rows > 0) {
         $array = array(); 
         foreach ($orderarray as $row) { 
-            $array[] = "('" . $queue_id . "', '" . $customer_id . "', '" . $customer_name . "', '" . $row["name"] . "', '". $row["qty"] . "' ,'" . $row["price"] . "' ,'" . $row["total"] . "' ,'". $now . "' , '" . $type . "', '" . $isSenior . "')"; 
+            $array[] = "('" . $queue_id . "', '" . $customer_id . "', '" . $customer_name . "', '" . $row["name"] . "', '". $row["qty"] . "' ,'" . $row["price"] . "' ,'" . $row["total"] . "' ,'". $now . "', '". $note . "' , '" . $type . "', '" . $isSenior . "')"; 
         }  
         $values = implode(", ", $array);
 
-        $stmt = $conn->prepare("INSERT INTO orders (queue_id, customer_id, customer_name, item_name, qty, price, total, date, type, isSenior) VALUES {$values}"); 
+        $stmt = $conn->prepare("INSERT INTO orders (queue_id, customer_id, customer_name, item_name, qty, price, total, date, note, type, isSenior) VALUES {$values}"); 
         $stmt->execute();
         
-
         $stmt->close();
         $response['error'] = false;
-        $response['message'] = 'Order Added';
-    
+        $response['message'] = 'Order Added!';
+        
     }else{
         $array = array(); 
         foreach ($orderarray as $row) { 
-            $array[] = "('" . $queue_id . "', '" . $customer_id . "', '" . $customer_name . "', '" . $row["name"] . "', '". $row["qty"] . "' ,'" . $row["price"] . "' ,'" . $row["total"] . "' ,'". $now . "' , '" . $type . "', '" . $isSenior . "')"; 
+            $array[] = "('" . $queue_id . "', '" . $customer_id . "', '" . $customer_name . "', '" . $row["name"] . "', '". $row["qty"] . "' ,'" . $row["price"] . "' ,'" . $row["total"] . "' ,'". $now . "', '". $note . "' , '" . $type . "', '" . $isSenior . "')"; 
         } 
         $values = implode(", ", $array);
 
-        $stmt = $conn->prepare("INSERT INTO orders (queue_id, customer_id, customer_name, item_name, qty, price, total, date, type, isSenior) VALUES {$values}"); 
+        $stmt = $conn->prepare("INSERT INTO orders (queue_id, customer_id, customer_name, item_name, qty, price, total, date, note, type, isSenior) VALUES {$values}"); 
         $stmt->execute();
         
-
         $stmt->close();
         $response['error'] = false;
-        $response['message'] = 'Order Placed';
+        $response['message'] = 'Order Placed!';
     }
 }
 echo json_encode($response);

@@ -1,25 +1,35 @@
 var data = null;
 
+var isEqualsJson = (obj1, obj2) => {
+  keys1 = Object.keys(obj1);
+  keys2 = Object.keys(obj2);
+
+  //return true when the two json has same length and all the properties has same value key by key
+  return (
+    keys1.length === keys2.length &&
+    Object.keys(obj1).every((key) => obj1[key] == obj2[key])
+  );
+};
+
 (function runForever() {
   $.ajax({
     type: "POST",
     url: "./php/fetchOrders.php",
     success: function (res) {
-      var length = Object.keys(JSON.parse(res)).length;
-      //console.log(length);
+      console.log(res);
+      var newData = res;
 
-      var data = localStorage.getItem("length");
-      //console.log(data);
+      var data = localStorage.getItem("queue");
 
       if (data == null) {
-        localStorage.setItem("length", length);
-      } else if (data != length) {
-        localStorage.setItem("length", length);
+        localStorage.setItem("queue", newData);
+      } else if (!isEqualsJson(data, newData)) {
+        localStorage.setItem("queue", newData);
         window.location.reload(1);
       }
     },
   });
-  setTimeout(runForever, 500);
+  setTimeout(runForever, 800);
 })();
 
 $(document).ready(function (e) {
@@ -40,7 +50,26 @@ $(document).ready(function (e) {
 $(".btnedit").click((e) => {
   data = e.target.dataset.id;
 
-  if (confirm("Really?")) {
+  e.stopPropagation();
+
+  var overlayme = document.getElementById("dialog-container");
+  var title = document.querySelector(".popup_title");
+
+  title.innerHTML = "Mark this customer as done ?";
+
+  overlayme.onclick = function () {
+    overlayme.style.display = "none";
+  };
+
+  /* A function to show the dialog window */
+  if (overlayme.style.display === "none") {
+    overlayme.style.display = "block";
+  } else {
+    overlayme.style.display = "none";
+  }
+
+  // If confirm btn is clicked , the function confim() is executed
+  document.getElementById("confirm").onclick = function () {
     $.ajax({
       type: "POST",
       url: "./php/api.php",
@@ -52,13 +81,38 @@ $(".btnedit").click((e) => {
         window.location.reload(1);
       },
     });
-  }
+    overlayme.style.display = "none";
+  };
+
+  // If cancel btn is clicked , the function cancel() is executed
+  document.getElementById("cancel").onclick = function () {
+    overlayme.style.display = "none";
+  };
 });
 
 $(".paid").click((e) => {
   data = e.target.dataset.id;
 
-  if (confirm("Really?")) {
+  e.stopPropagation();
+
+  var overlayme = document.getElementById("dialog-container");
+  var title = document.querySelector(".popup_title");
+
+  title.innerHTML = "Mark this customer as paid ?";
+
+  overlayme.onclick = function () {
+    overlayme.style.display = "none";
+  };
+
+  /* A function to show the dialog window */
+  if (overlayme.style.display === "none") {
+    overlayme.style.display = "block";
+  } else {
+    overlayme.style.display = "none";
+  }
+
+  // If confirm btn is clicked , the function confim() is executed
+  document.getElementById("confirm").onclick = function () {
     $.ajax({
       type: "POST",
       url: "./php/api.php",
@@ -70,7 +124,27 @@ $(".paid").click((e) => {
         window.location.reload(1);
       },
     });
-  }
+    overlayme.style.display = "none";
+  };
+
+  // If cancel btn is clicked , the function cancel() is executed
+  document.getElementById("cancel").onclick = function () {
+    overlayme.style.display = "none";
+  };
+
+  // if (confirm("Mark this customer as paid ?")) {
+  //   $.ajax({
+  //     type: "POST",
+  //     url: "./php/api.php",
+  //     data: { id: data, type: "pay" },
+  //     success: function () {
+  //       window.location.reload(1);
+  //     },
+  //     error: function () {
+  //       window.location.reload(1);
+  //     },
+  //   });
+  // }
 });
 
 window.onkeyup = function (event) {

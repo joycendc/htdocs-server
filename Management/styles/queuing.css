@@ -1,6 +1,6 @@
 :root {
   --main-color: #0b0b0b;
-  --accent: #0f878e;
+  --accent: #cf242a;
 }
 
 * {
@@ -11,6 +11,10 @@
 
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.logo {
+  display: flex;
 }
 
 .logo a {
@@ -43,7 +47,7 @@ body {
   align-items: center;
   justify-content: flex-end;
   list-style: none;
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
 .links li {
@@ -59,17 +63,19 @@ body {
 }
 
 .links li a {
+  font-size: 0.9rem;
+  font-weight: bold;
   text-decoration: none;
   color: var(--accent);
 }
 
 .links .active {
-  border-bottom: 10px solid var(--accent);b0;
+  border-bottom: 10px solid var(--accent);
 }
 
 .links li a:hover {
   font-weight: bold;
-  background-color: var(--accent);b0;
+  background-color: var(--accent);
   color: #fff;
 }
 
@@ -77,18 +83,20 @@ body {
   height: calc(100vh - 70px);
   width: 100%;
   display: grid;
-  grid-template-columns: 30% 40% 30%;
+  grid-template-columns: 37% 37% 26%;
 }
 
 main {
   width: 100%;
   background-color: var(--accent);
+  filter: brightness(110%);
   overflow-y: hidden;
   border-radius: 5px;
 }
 
 aside {
   color: var(--accent);
+  overflow-y: auto;
 }
 
 .view {
@@ -221,6 +229,9 @@ aside {
   padding: 10px;
   color: white;
   background-color: var(--accent);
+  position: fixed;
+  /* z-index: -99; */
+  width: 37%;
 }
 
 table {
@@ -230,9 +241,15 @@ table {
 .table {
   height: 100%;
 }
+
 .tablewrap {
+  margin-top: 53px;
   height: 90%;
-  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+#tbody {
+  margin-top: 20px;
 }
 
 tr {
@@ -255,7 +272,7 @@ td {
 }
 
 .row {
-  background: #0cb856;
+  background: crimson;
 }
 
 .row:hover {
@@ -263,7 +280,7 @@ td {
 }
 
 .row_open {
-  background: #1dce6a;
+  background: crimson;
 }
 
 .row_open td {
@@ -273,7 +290,7 @@ td {
 }
 
 .row_open:hover {
-  background: rgb(7, 153, 7);
+  background: rgb(151, 13, 41);
 }
 
 table {
@@ -282,7 +299,7 @@ table {
 }
 
 th {
-  background: #f878e;
+  background: var(--accent);
   color: white;
   font-weight: bold;
 }
@@ -300,7 +317,14 @@ th {
   height: 20px;
   background: #fff;
   font-weight: bold;
-  color: green;
+  color: #000;
+  cursor: default;
+}
+
+.note td {
+  font-size: 18px;
+  width: 100%;
+  text-align: center;
 }
 
 .dt td {
@@ -308,11 +332,13 @@ th {
   height: 20px;
   background-color: #fff;
   font-weight: bold;
-  color: green;
+  color: #333;
+  cursor: default;
 }
 
 .total td {
-  background: crimson;
+  padding: 10px 10px;
+  background: darkorange;
   color: #fff;
 }
 
@@ -322,8 +348,8 @@ th {
   color: #fff !important;
   text-transform: uppercase;
   text-decoration: none;
-  background: crimson;
-  padding: 6px 8px;
+  background: rgb(49, 202, 49);
+  padding: 8px 8px;
   border-radius: 5px;
   border: none;
   transition: all 0.4s ease 0s;
@@ -337,7 +363,8 @@ th {
 }
 
 .btnedit:hover {
-  background: rgb(247, 65, 102);
+  background: greenyellow;
+  color: #000 !important;
   letter-spacing: 1px;
   -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
   -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
@@ -346,16 +373,13 @@ th {
 }
 
 .paid {
-  font-size: 9px;
+  font-size: 10px;
   font-weight: bold;
   color: #fff !important;
-
   text-transform: uppercase;
   text-decoration: none;
-  display: flex;
-  align-items: center;
   background: royalblue;
-  padding: 10px 8px;
+  padding: 8px 8px;
   border-radius: 5px;
   border: none;
   transition: all 0.4s ease 0s;
@@ -369,6 +393,7 @@ th {
 
 .paid:hover {
   background: rgb(107, 142, 248);
+  color: #000 !important;
   letter-spacing: 0.5px;
   -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
   -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);

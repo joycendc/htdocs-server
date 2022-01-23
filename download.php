@@ -8,35 +8,39 @@
     <style>
         body{
             background-color: #fff;
-            height: 100vh;
-            width: 100vw;
+            height: 90vh;
+            width: 90vw;
             display: grid;
             justify-content: center;
             align-items: center;
         }
-
         .view{
-            display: grid;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: #0f878e;
+            color: #cf242a;
         }
 
         img {
-            width: 100%;
+            width: 300px;
         }
         a{
             text-decoration: none;
             color: #fff;
             padding: 20px 140px;
+            
         }
-        
+
+        h1{
+            font-size: 25px;
+        }
         button {
             font-weight: bold;
             color: #fff !important;
             text-transform: uppercase;
             text-decoration: none;
-            background: #0f878e;
+            background: #cf242a;
             padding: 20px 0px;
             border-radius: 5px;
             display: inline-block;
@@ -44,7 +48,6 @@
             transition: all 0.4s ease 0s;
             cursor: pointer;
         }
-
         button:hover{
             background: #434343;
             letter-spacing: 1px;
@@ -57,8 +60,8 @@
 </head>
 <body>
 <div class="view">
-    <img src="/API/images/logo.svg"/>
-    <h1>Download FoodQueue App</h1>
+    <img src="/API/images/logo.png"/>
+    <h1>Download Kumpares Food Order and Queue App</h1>
     <button><a href="/app-debugs.apk">Download</a></button>
 </div>
 </body>
