@@ -2,9 +2,20 @@
     require "init.php";
 
     if(isset($_POST['from_date'], $_POST['to_date'])){
-        $reports = $db->query("SELECT id, date, queue_id, customer_id, customer_name, SUM(total) AS 'total' FROM transactions WHERE (DATE(date) BETWEEN '".$_POST["from_date"]."' AND '".$_POST["to_date"]."') GROUP BY DATE_FORMAT(date,'%Y-%M-%d');")->fetchAll();
+        //$reports = $db->query("SELECT id, date, queue_id, customer_id, customer_name, SUM(total) AS 'total' FROM transactions WHERE (DATE(date) BETWEEN '".$_POST["from_date"]."' AND '".$_POST["to_date"]."') GROUP BY DATE_FORMAT(date,'%Y-%M-%d');")->fetchAll();
+        $reports = $db->query("SELECT date, SUM(total) AS 'total' FROM transactions WHERE (DATE(date) BETWEEN '".$_POST["from_date"]."' AND '".$_POST["to_date"]."') GROUP BY DATE_FORMAT(date,'%Y-%M-%d');")->fetchAll();
+    }else if(isset($_POST['all'])){
+        $reports = $db->query("SELECT id, date, queue_id, customer_id, customer_name, SUM(total) AS 'total' FROM transactions GROUP BY DATE_FORMAT(date,'%Y-%M-%d');")->fetchAll();
     }
-    
+    if (!empty($reports)) {
+        $data = array();
+        foreach ($reports as $report) {
+            $data[] = $report;
+        }
+        echo json_encode($data);
+    }
+
+/*
     $dynamicMakeTbl = '<table class="table table-striped table-hover">';
 
         $dynamicMakeTbl .= '<thead>';
@@ -47,4 +58,4 @@
         }else {
             echo '<h1 class="text-center">No Data Found...</h1>';
         }
-   
+   */

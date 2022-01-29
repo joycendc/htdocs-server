@@ -1,12 +1,15 @@
+//  ADD
 $(document).on("click", "#btn-add", function (e) {
-  // var data = $("#product_form").serialize();
-  // console.log(data, 1)
   e.preventDefault();
 
-  if ($('#image').get(0).files.length === 0) {
+  if ($("#image").get(0).files.length === 0) {
     return alert("Please add an image!");
   }
-  if( $('.addForm').filter(function() { return this.value === ''; }).length > 0 ) {
+  if (
+    $(".addForm").filter(function () {
+      return this.value === "";
+    }).length > 0
+  ) {
     return alert("All fields are required!");
   }
   var form = $("#product_form");
@@ -25,13 +28,76 @@ $(document).on("click", "#btn-add", function (e) {
         $("#addProductModal").modal("hide");
         alert("Data added successfully !");
         location.reload();
-      } else if (dataResult.statusCode == 201) {
+      } else {
         alert(dataResult);
       }
     },
   });
 });
 
+$(document).on("click", "#customerAdd", function (e) {
+  e.preventDefault();
+  var data = $("#customerForm").serialize();
+
+  if (
+    $(".addForm").filter(function () {
+      return this.value === "";
+    }).length > 0
+  ) {
+    return alert("All fields are required!");
+  }
+
+  console.log(data);
+  $.ajax({
+    data: data,
+    type: "POST",
+    url: "./backend/customer.php",
+    success: function (dataResult) {
+      var dataResult = JSON.parse(dataResult);
+
+      if (dataResult.statusCode == 200) {
+        $("#addCustomerModal").modal("hide");
+        alert("Data added successfully !");
+        location.reload();
+      } else {
+        alert(dataResult);
+      }
+    },
+  });
+});
+
+$(document).on("click", "#userAdd", function (e) {
+  e.preventDefault();
+  var data = $("#userForm").serialize();
+
+  if (
+    $(".addForm").filter(function () {
+      return this.value === "";
+    }).length > 0
+  ) {
+    return alert("All fields are required!");
+  }
+
+  $.ajax({
+    data: data,
+    type: "POST",
+    url: "./backend/user.php",
+    success: function (dataResult) {
+      var dataResult = JSON.parse(dataResult);
+
+      if (dataResult.statusCode == 200) {
+        $("#addUserModal").modal("hide");
+        alert("Data added successfully !");
+        location.reload();
+      } else {
+        alert(dataResult);
+      }
+    },
+  });
+});
+//  END ADD
+
+//  UPDATE
 $(document).on("click", ".update", function (e) {
   var id = $(this).attr("data-id");
   var name = $(this).attr("data-name");
@@ -56,66 +122,177 @@ $(document).on("click", ".update", function (e) {
   }
 });
 
-$(document).on("click", "#update", function (e) {
-   e.preventDefault();
-   var data = null;
+$(document).on("click", ".customerUpdate", function (e) {
+  var id = $(this).attr("data-id");
+  var first_name = $(this).attr("data-first_name");
+  var last_name = $(this).attr("data-last_name");
+  var mobile_number = $(this).attr("data-mobile_number");
 
-   if ($('#imageEdit').get(0).files.length === 0) {
-    if( $('.editForm').filter(function() { return this.value === ''; }).length > 0 ) {
+  $("#id_u").val(id);
+  $("#fname_u").val(first_name);
+  $("#lname_u").val(last_name);
+  $("#number_u").val(mobile_number);
+});
+
+$(document).on("click", ".userUpdate", function (e) {
+  var id = $(this).attr("data-id");
+  var username = $(this).attr("data-username");
+  var level = $(this).attr("data-level");
+
+  $("#id_u").val(id);
+  $("#username_u").val(username);
+  var category = document.getElementById("level_u");
+  for (i = 0; i < category.options.length; i++) {
+    if (category.options[i].value == level) {
+      // Item is found. Set its property and exit
+      category.options[i].selected = true;
+      break;
+    }
+  }
+});
+
+$(document).on("click", "#update", function (e) {
+  e.preventDefault();
+  var data = null;
+
+  if ($("#imageEdit").get(0).files.length === 0) {
+    if (
+      $(".editForm").filter(function () {
+        return this.value === "";
+      }).length > 0
+    ) {
       return alert("All fields are required!");
     }
 
-    data = $('#update_form').find(':input').not('.dont_serialize').serialize();
+    data = $("#update_form").find(":input").not(".dont_serialize").serialize();
 
     $.ajax({
-    data: data,
-    type: "POST",
-    url: "./backend/product.php",
-    success: function (dataResult) {
-      console.log(dataResult);
-      var dataResult = JSON.parse(dataResult);
-      if (dataResult.statusCode == 200) {
-        $("#editProductModal").modal("hide");
-        alert("Data updated successfully !");
-        location.reload();
-      } else if (dataResult.statusCode == 201) {
-        alert(dataResult);
-      }
-    },
-  });
-  }else {
+      data: data,
+      type: "POST",
+      url: "./backend/product.php",
+      success: function (dataResult) {
+        console.log(dataResult);
+        var dataResult = JSON.parse(dataResult);
+        if (dataResult.statusCode == 200) {
+          $("#editProductModal").modal("hide");
+          alert("Data updated successfully !");
+          location.reload();
+        } else {
+          alert(dataResult);
+        }
+      },
+    });
+  } else {
     var form = $("#update_form");
     data = new FormData(form[0]);
 
     $.ajax({
+      data: data,
+      type: "POST",
+      url: "./backend/product.php",
+      processData: false,
+      contentType: false,
+      success: function (dataResult) {
+        console.log(dataResult);
+        var dataResult = JSON.parse(dataResult);
+        if (dataResult.statusCode == 200) {
+          $("#editProductModal").modal("hide");
+          alert("Data updated successfully !");
+          location.reload();
+        } else {
+          alert(dataResult);
+        }
+      },
+    });
+  }
+});
+
+$(document).on("click", "#customerUpdate", function (e) {
+  e.preventDefault();
+  if (
+    $(".customerEditForm").filter(function () {
+      return this.value === "";
+    }).length > 0
+  ) {
+    return alert("All fields are required!");
+  }
+
+  data = $("#customerUpdate_form").serialize();
+
+  console.log(data);
+
+  $.ajax({
     data: data,
     type: "POST",
-    url: "./backend/product.php",
-    processData: false,
-    contentType: false,
+    url: "./backend/customer.php",
     success: function (dataResult) {
       console.log(dataResult);
       var dataResult = JSON.parse(dataResult);
       if (dataResult.statusCode == 200) {
-        $("#editProductModal").modal("hide");
-        alert("Data updated successfully !");
+        $("#editUserModal").modal("hide");
+        alert("User updated successfully !");
         location.reload();
-      } else if (dataResult.statusCode == 201) {
+      } else {
         alert(dataResult);
       }
     },
   });
-  }
- 
-  
 });
 
+$(document).on("click", "#userUpdate", function (e) {
+  e.preventDefault();
+  if (
+    $(".userEditForm").filter(function () {
+      return this.value === "";
+    }).length > 0
+  ) {
+    return alert("All fields are required!");
+  }
+
+  data = $("#userUpdate_form").serialize();
+
+  $.ajax({
+    data: data,
+    type: "POST",
+    url: "./backend/user.php",
+    success: function (dataResult) {
+      console.log(dataResult);
+      var dataResult = JSON.parse(dataResult);
+      if (dataResult.statusCode == 200) {
+        $("#editUserModal").modal("hide");
+        alert("User updated successfully !");
+        location.reload();
+      } else {
+        alert(dataResult);
+      }
+    },
+  });
+});
+// END UPDATE
+
+//  DELETE
 $(document).on("click", ".delete", function () {
   var id = $(this).attr("data-id");
   var url = $(this).attr("data-url");
 
   $("#id_d").val(id);
   $("#url_d").val(url);
+});
+
+$(document).on("click", ".customerDelete", function () {
+  var id = $(this).attr("data-id");
+
+  $("#cid_d").val(id);
+});
+$(document).on("click", ".userDelete", function () {
+  var id = $(this).attr("data-id");
+
+  $("#uid_d").val(id);
+});
+$(document).on("click", ".userDelete", function () {
+  var id = $(this).attr("data-id");
+
+  $("#id_d").val(id);
 });
 
 $(document).on("click", "#delete", function () {
@@ -129,9 +306,43 @@ $(document).on("click", "#delete", function () {
       url: $("#url_d").val(),
     },
     success: function (dataResult) {
-      console.log(dataResult);
       $("#deleteProductModal").modal("hide");
       $("#" + dataResult).remove();
+      alert("User deleted successfully !");
+    },
+  });
+});
+
+$(document).on("click", "#customerDelete", function () {
+  $.ajax({
+    url: "./backend/customer.php",
+    type: "POST",
+    cache: false,
+    data: {
+      type: 3,
+      id: $("#cid_d").val(),
+    },
+    success: function (dataResult) {
+      $("#deleteCustomerModal").modal("hide");
+      $("#" + dataResult).remove();
+      alert("User deleted successfully !");
+    },
+  });
+});
+
+$(document).on("click", "#userDelete", function () {
+  $.ajax({
+    url: "./backend/user.php",
+    type: "POST",
+    cache: false,
+    data: {
+      type: 3,
+      id: $("#uid_d").val(),
+    },
+    success: function (dataResult) {
+      $("#deleteUserModal").modal("hide");
+      $("#" + dataResult).remove();
+      alert("User deleted successfully !");
     },
   });
 });

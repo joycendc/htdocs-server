@@ -13,12 +13,12 @@ if(isset($_POST['queue_id'])){
     if($stmt->error){        
         $response['error'] = false;
         $response['message'] = 'PLEASE PLACE YOUR ORDER FIRST '.$stmt->num_rows;
-        $stmt->close();
+    
     }else{
         $response['error'] = false;
         $response['message'] = 'PAYMENT SUCCESS';
-        $stmt->close();
     }
+    $stmt->close();
 }else{
     $response['error'] = true;
     $response['message'] = 'PAYMENT ERROR';

@@ -35,10 +35,10 @@
                   <td><button data-id="<?php echo $customer['customer_id']; ?>" name="remove" class="btnedit"><i class='fas fa-check-circle'></i>DONE</button></td>
               </tr>
               <?php
-                 $orders = $db->query("SELECT note, item_name, price, qty, total FROM (SELECT note, item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;", $customer['customer_id'])->fetchAll();
+                 $orders = $db->query("SELECT note, item_name, price, qty, total, type FROM (SELECT note, item_name, price, SUM(qty) AS qty, SUM(total) AS total, type FROM orders WHERE customer_id=? GROUP BY item_name) orders;", $customer['customer_id'])->fetchAll();
               ?>
               <tbody class="hide">                  
-                  <tr class="rowhead note"><td colspan="5">---  <?php echo $orders[0]['note']; ?>  ---</td></tr>
+                  <tr class="rowhead note"><td colspan="5"><?php echo $orders[0]['type'] === 1 ? "DINE IN" : "TAKE OUT"; ?> :  <?php echo !empty($orders[0]['note']) ? $orders[0]['note'] : "---"; ?></td></tr>
                   <tr class="rowhead">                                                                                                                      
                       <td colspan="2" ><?php echo "Item"; ?></td>    
                       <td><?php echo "Price"; ?></td>                                                                                                   

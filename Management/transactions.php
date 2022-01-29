@@ -18,7 +18,15 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Recent Orders</title>
+    <link rel="icon" type="image/png" sizes="192x192"  href="../../src/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../src/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../../src/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../src/favicon-16x16.png">
+    <link rel="manifest" href="../../src/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="../../src/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <title>Transactions</title>
     <link rel="stylesheet" href="./styles/all.css">
     <link rel="stylesheet" href="./styles/bootstrap.min.css">
     <link rel="stylesheet" href="./styles/style.css">
@@ -81,6 +89,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <?php
         include('./php/includes/navbar.php');
     ?>
+    <?php if($_SESSION['level'] && $_SESSION['level'] == '2'){ ?>
     <div class="containers">
         <div class="table-wrapper">
             <div class="table-title">
@@ -161,6 +170,9 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
             </div>
         </div>
     </div>
+    <?php } else { ?>
+        <h1 class="text-center">No access</h1>
+    <?php } ?>
 
     <div id="showOrderModal" class="modal fade">
 		<div class="modal-dialog">
