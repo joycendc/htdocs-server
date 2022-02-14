@@ -7,18 +7,26 @@ if(mysqli_connect_errno()){
 
 $customer_id = $_POST['customer_id'];
 
-if (isset($_POST['queue'])) {
-    $stmt = $conn->prepare("SELECT * FROM orders WHERE customer_id='$customer_id';");
-    $stmt->execute();
-    $stmt->store_result();
+if(count($_POST) > 0){
+    if (isset($_POST['queue'])) {
+        $stmt = $conn->prepare("SELECT * FROM orders WHERE customer_id='$customer_id';");
+        $stmt->execute();
+        $stmt->store_result();
 
-    echo ($stmt->num_rows > 0) ? "false" : "true";
-}else if (isset($_POST['paid'])){
-    $stmt = $conn->prepare("SELECT * FROM orders WHERE customer_id='$customer_id' AND status=1;");
-    $stmt->execute();
-    $stmt->store_result();
+        echo ($stmt->num_rows > 0) ? "true" : "false";
+    }else if (isset($_POST['orderdone'])) {
+        $stmt = $conn->prepare("SELECT * FROM orders WHERE customer_id='$customer_id';");
+        $stmt->execute();
+        $stmt->store_result();
 
-    echo ($stmt->num_rows > 0) ? "true" : "false";
+        echo ($stmt->num_rows > 0) ? "false" : "true";
+    }else if (isset($_POST['paid'])){
+        $stmt = $conn->prepare("SELECT * FROM orders WHERE customer_id='$customer_id' AND status=1;");
+        $stmt->execute();
+        $stmt->store_result();
+
+        echo ($stmt->num_rows > 0) ? "true" : "false";
+    }
 }else {
     echo "false";
 }

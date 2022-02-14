@@ -11,12 +11,12 @@ var isEqualsJson = (obj1, obj2) => {
   );
 };
 
-(function runForever() {
+const getOrders = () => {
   $.ajax({
     type: "POST",
     url: "./php/fetchOrders.php",
-    success: function (res) {
-      console.log(res);
+    success: (res) => {
+      console.log(data);
       var newData = res;
 
       var data = localStorage.getItem("queue");
@@ -27,10 +27,40 @@ var isEqualsJson = (obj1, obj2) => {
         localStorage.setItem("queue", newData);
         window.location.reload(1);
       }
+      getOrders();
+    },
+    error: (res) => {
+      console.log(res);
+      getOrders();
     },
   });
-  setTimeout(runForever, 800);
-})();
+};
+
+// initialize jQuery
+$(function () {
+  getOrders();
+});
+
+// (function runForever() {
+//   $.ajax({
+//     type: "POST",
+//     url: "./php/fetchOrders.php",
+//     success: function (res) {
+//       console.log(res);
+//       var newData = res;
+
+//       var data = localStorage.getItem("queue");
+
+//       if (data == null) {
+//         localStorage.setItem("queue", newData);
+//       } else if (!isEqualsJson(data, newData)) {
+//         localStorage.setItem("queue", newData);
+//         window.location.reload(1);
+//       }
+//     },
+//   });
+//   setTimeout(runForever, 800);
+// })();
 
 $(document).ready(function (e) {
   // $(".hide").slideUp(0);

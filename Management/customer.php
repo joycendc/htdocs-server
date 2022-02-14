@@ -260,7 +260,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 			console.log(text);
 			$.ajax({
 				type: "POST",
-				url: "./php/search.php",
+				url: "./php/searchCustomer.php",
 				data: { value: text},
 				success:function(data){
 				$("#results").html(data);

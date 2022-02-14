@@ -9,7 +9,11 @@ $stmt->bind_param("s", $customer_id);
 if ($stmt->execute()) {
     $stmt->close();
     $response['error'] = false;
-    $response['message'] = "Thank you, Come Again !";
+    $response['message'] = "Order Cancelled !";
+}else {
+    $stmt->close();
+    $response['error'] = true;
+    $response['message'] = "Order Cannot be camcelled !";
 }
 
 echo json_encode($response);

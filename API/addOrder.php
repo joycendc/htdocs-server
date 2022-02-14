@@ -20,7 +20,6 @@ if($stmt->num_rows > 0){
     $response['error'] = false;
     $response['message'] = 'Order is being Served';
 }else {
-
     $stmt = $conn->prepare("SELECT customer_id FROM orders WHERE customer_id=?;");
     $stmt->bind_param("s", $customer_id);
     $stmt->execute();
@@ -38,25 +37,37 @@ if($stmt->num_rows > 0){
         $values = implode(", ", $array);
 
         $stmt = $conn->prepare("INSERT INTO orders (queue_id, customer_id, customer_name, item_name, qty, price, total, date, note, type, isSenior) VALUES {$values}"); 
-        $stmt->execute();
+        
+        if($stmt->execute()){
+            $response['error'] = false;
+            $response['message'] = 'Order Added!';
+        }else{
+            $response['error'] = true;
+            $response['message'] = 'Error: '.$stmt->error;
+        }
         
         $stmt->close();
-        $response['error'] = false;
-        $response['message'] = 'Order Added!';
+        
         
     }else{
         $array = array(); 
         foreach ($orderarray as $row) { 
             $array[] = "('" . $queue_id . "', '" . $customer_id . "', '" . $customer_name . "', '" . $row["name"] . "', '". $row["qty"] . "' ,'" . $row["price"] . "' ,'" . $row["total"] . "' ,'". $now . "', '". $note . "' , '" . $type . "', '" . $isSenior . "')"; 
         } 
+        
         $values = implode(", ", $array);
 
         $stmt = $conn->prepare("INSERT INTO orders (queue_id, customer_id, customer_name, item_name, qty, price, total, date, note, type, isSenior) VALUES {$values}"); 
-        $stmt->execute();
+        
+        if($stmt->execute()){
+            $response['error'] = false;
+            $response['message'] = 'Order Placed!';
+        }else{
+            $response['error'] = true;
+            $response['message'] = 'Error: '.$stmt->error;
+        }
         
         $stmt->close();
-        $response['error'] = false;
-        $response['message'] = 'Order Placed!';
     }
 }
 echo json_encode($response);

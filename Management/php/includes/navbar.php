@@ -26,7 +26,7 @@
             if($_SERVER['SCRIPT_NAME'] == "/Management/customer.php") { ?>
                 class="active"
                 <?php } ?>
-             href="./customer.php"><i class="fas fa-user"></i>CUSTOMERS</a></li>
+             href="./customer.php"><i class="fas fa-users"></i>CUSTOMERS</a></li>
         <li ><a
             <?php 
             echo $_SERVER['SCRIPT_NAME'];
