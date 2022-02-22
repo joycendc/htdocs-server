@@ -1,4 +1,4 @@
-//  ADD
+//  ADD PRODUCT //
 $(document).on("click", "#btn-add", function (e) {
   e.preventDefault();
 
@@ -14,6 +14,7 @@ $(document).on("click", "#btn-add", function (e) {
   }
   var form = $("#product_form");
   var formData = new FormData(form[0]);
+  const cookie = "; " + document.cookie;
 
   $.ajax({
     data: formData,
@@ -34,7 +35,9 @@ $(document).on("click", "#btn-add", function (e) {
     },
   });
 });
+//  END ADD PRODUCT //
 
+//  ADD CUSTOMER //
 $(document).on("click", "#customerAdd", function (e) {
   e.preventDefault();
   var data = $("#customerForm").serialize();
@@ -65,7 +68,9 @@ $(document).on("click", "#customerAdd", function (e) {
     },
   });
 });
+//  END ADD CUSTOMER //
 
+//  ADD USER //
 $(document).on("click", "#userAdd", function (e) {
   e.preventDefault();
   var data = $("#userForm").serialize();
@@ -95,9 +100,9 @@ $(document).on("click", "#userAdd", function (e) {
     },
   });
 });
-//  END ADD
+//  END ADD USER //
 
-//  UPDATE
+//  BIND PRODUCT //
 $(document).on("click", ".update", function (e) {
   var id = $(this).attr("data-id");
   var name = $(this).attr("data-name");
@@ -121,7 +126,9 @@ $(document).on("click", ".update", function (e) {
     }
   }
 });
+// END BIND PRODUCT //
 
+//  BIND CUSTOMER //
 $(document).on("click", ".customerUpdate", function (e) {
   var id = $(this).attr("data-id");
   var first_name = $(this).attr("data-first_name");
@@ -133,14 +140,18 @@ $(document).on("click", ".customerUpdate", function (e) {
   $("#lname_u").val(last_name);
   $("#number_u").val(mobile_number);
 });
+// END BIND CUSTOMER //
 
+// BIND USER //
 $(document).on("click", ".userUpdate", function (e) {
   var id = $(this).attr("data-id");
   var username = $(this).attr("data-username");
+  var password = $(this).attr("data-password");
   var level = $(this).attr("data-level");
 
   $("#id_u").val(id);
   $("#username_u").val(username);
+  $("#password_u").val(password);
   var category = document.getElementById("level_u");
   for (i = 0; i < category.options.length; i++) {
     if (category.options[i].value == level) {
@@ -150,7 +161,9 @@ $(document).on("click", ".userUpdate", function (e) {
     }
   }
 });
+// END BIND USER //
 
+//  UPDATE PRODUCT //
 $(document).on("click", "#update", function (e) {
   e.preventDefault();
   var data = null;
@@ -206,7 +219,9 @@ $(document).on("click", "#update", function (e) {
     });
   }
 });
+// END UPDATE PRODUCT //
 
+//  UPDATE CUSTOMER //
 $(document).on("click", "#customerUpdate", function (e) {
   e.preventDefault();
   if (
@@ -238,7 +253,9 @@ $(document).on("click", "#customerUpdate", function (e) {
     },
   });
 });
+//  UPDATE CUSTOMER //
 
+//  UPDATE USER //
 $(document).on("click", "#userUpdate", function (e) {
   e.preventDefault();
   if (
@@ -268,7 +285,7 @@ $(document).on("click", "#userUpdate", function (e) {
     },
   });
 });
-// END UPDATE
+// END UPDATE USER //
 
 //  DELETE
 $(document).on("click", ".delete", function () {
@@ -295,6 +312,7 @@ $(document).on("click", ".userDelete", function () {
   $("#id_d").val(id);
 });
 
+// DELETE PRODUCT //
 $(document).on("click", "#delete", function () {
   $.ajax({
     url: "./backend/product.php",
@@ -312,7 +330,9 @@ $(document).on("click", "#delete", function () {
     },
   });
 });
+// END DELETE PRODUCT //
 
+// DELETE CUSTOMER //
 $(document).on("click", "#customerDelete", function () {
   $.ajax({
     url: "./backend/customer.php",
@@ -329,7 +349,9 @@ $(document).on("click", "#customerDelete", function () {
     },
   });
 });
+// END DELETE CUSTOMER //
 
+// USER CUSTOMER //
 $(document).on("click", "#userDelete", function () {
   $.ajax({
     url: "./backend/user.php",
@@ -346,63 +368,9 @@ $(document).on("click", "#userDelete", function () {
     },
   });
 });
+// END DELETE USER //
 
-$(document).on("click", "#delete_multiple", function () {
-  var user = [];
-  $(".user_checkbox:checked").each(function () {
-    user.push($(this).data("user-id"));
-  });
-  if (user.length <= 0) {
-    alert("Please select records.");
-  } else {
-    WRN_PROFILE_DELETE =
-      "Are you sure you want to delete " +
-      (user.length > 1 ? "these" : "this") +
-      " row?";
-    var checked = confirm(WRN_PROFILE_DELETE);
-    if (checked == true) {
-      var selected_values = user.join(",");
-      console.log(selected_values);
-      $.ajax({
-        type: "POST",
-        url: "backend/save.php",
-        cache: false,
-        data: {
-          type: 4,
-          id: selected_values,
-        },
-        success: function (response) {
-          var ids = response.split(",");
-          for (var i = 0; i < ids.length; i++) {
-            $("#" + ids[i]).remove();
-          }
-        },
-      });
-    }
-  }
-});
-
-$(document).ready(function () {
-  $('[data-toggle="tooltip"]').tooltip();
-  var checkbox = $('table tbody input[type="checkbox"]');
-  $("#selectAll").click(function () {
-    if (this.checked) {
-      checkbox.each(function () {
-        this.checked = true;
-      });
-    } else {
-      checkbox.each(function () {
-        this.checked = false;
-      });
-    }
-  });
-  checkbox.click(function () {
-    if (!this.checked) {
-      $("#selectAll").prop("checked", false);
-    }
-  });
-});
-
+// VIEW ORDER //
 $(document).on("click", ".order", function (e) {
   $("#showOrderModal").modal("show");
   var id = $(this).attr("data-id");
@@ -441,3 +409,60 @@ $(document).on("click", ".order", function (e) {
     },
   });
 });
+// END VIEW ORDER //
+
+// $(document).on("click", "#delete_multiple", function () {
+//   var user = [];
+//   $(".user_checkbox:checked").each(function () {
+//     user.push($(this).data("user-id"));
+//   });
+//   if (user.length <= 0) {
+//     alert("Please select records.");
+//   } else {
+//     WRN_PROFILE_DELETE =
+//       "Are you sure you want to delete " +
+//       (user.length > 1 ? "these" : "this") +
+//       " row?";
+//     var checked = confirm(WRN_PROFILE_DELETE);
+//     if (checked == true) {
+//       var selected_values = user.join(",");
+//       console.log(selected_values);
+//       $.ajax({
+//         type: "POST",
+//         url: "backend/save.php",
+//         cache: false,
+//         data: {
+//           type: 4,
+//           id: selected_values,
+//         },
+//         success: function (response) {
+//           var ids = response.split(",");
+//           for (var i = 0; i < ids.length; i++) {
+//             $("#" + ids[i]).remove();
+//           }
+//         },
+//       });
+//     }
+//   }
+// });
+
+// $(document).ready(function () {
+//   $('[data-toggle="tooltip"]').tooltip();
+//   var checkbox = $('table tbody input[type="checkbox"]');
+//   $("#selectAll").click(function () {
+//     if (this.checked) {
+//       checkbox.each(function () {
+//         this.checked = true;
+//       });
+//     } else {
+//       checkbox.each(function () {
+//         this.checked = false;
+//       });
+//     }
+//   });
+//   checkbox.click(function () {
+//     if (!this.checked) {
+//       $("#selectAll").prop("checked", false);
+//     }
+//   });
+// });

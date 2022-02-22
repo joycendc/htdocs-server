@@ -31,7 +31,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 	<link rel="stylesheet" href="./styles/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="./styles/style.css">
 	<script src="./js/jquery.min.js"></script>
-	<script src="./js/jquery.validate.min.js"></script>
 	<script src="./js/bootstrap.min.js"></script>
 	<script src="./js/ajax.js"></script>
 

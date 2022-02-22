@@ -1,10 +1,8 @@
 var data = null;
-
 var isEqualsJson = (obj1, obj2) => {
   keys1 = Object.keys(obj1);
   keys2 = Object.keys(obj2);
 
-  //return true when the two json has same length and all the properties has same value key by key
   return (
     keys1.length === keys2.length &&
     Object.keys(obj1).every((key) => obj1[key] == obj2[key])
@@ -16,7 +14,7 @@ const getOrders = () => {
     type: "POST",
     url: "./php/fetchOrders.php",
     success: (res) => {
-      console.log(data);
+      // console.log(data);
       var newData = res;
 
       var data = localStorage.getItem("queue");
@@ -30,7 +28,7 @@ const getOrders = () => {
       getOrders();
     },
     error: (res) => {
-      console.log(res);
+      // console.log(res);
       getOrders();
     },
   });
@@ -161,20 +159,6 @@ $(".paid").click((e) => {
   document.getElementById("cancel").onclick = function () {
     overlayme.style.display = "none";
   };
-
-  // if (confirm("Mark this customer as paid ?")) {
-  //   $.ajax({
-  //     type: "POST",
-  //     url: "./php/api.php",
-  //     data: { id: data, type: "pay" },
-  //     success: function () {
-  //       window.location.reload(1);
-  //     },
-  //     error: function () {
-  //       window.location.reload(1);
-  //     },
-  //   });
-  // }
 });
 
 window.onkeyup = function (event) {

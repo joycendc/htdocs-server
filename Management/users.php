@@ -31,7 +31,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 	<link rel="stylesheet" href="./styles/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="./styles/style.css">
 	<script src="./js/jquery.min.js"></script>
-	<script src="./js/jquery.validate.min.js"></script>
 	<script src="./js/bootstrap.min.js"></script>
 	<script src="./js/ajax.js"></script>
 
@@ -67,7 +66,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 				$page = (isset($_GET['page']) && is_numeric($_GET['page']) ) ? $_GET['page'] : 1;
 				$start = ($page - 1) * $limit;
 
-				$users = $db->query("SELECT id, username, level FROM users ORDER BY ID DESC LIMIT $start, $limit;")->fetchAll();
+				$users = $db->query("SELECT id, username, password, level FROM users ORDER BY ID DESC LIMIT $start, $limit;")->fetchAll();
 				//$orders = $db->query("SELECT id, date, queue_id, user_id, user_name, SUM(total) AS 'total' FROM transactions GROUP BY DATE_FORMAT(date,'%Y-%M-%d %H:%i');")->fetchAll();
 				
 				$sql = $db->query("SELECT count(id) AS id FROM users")->fetchAll();
@@ -93,6 +92,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 							-->
 							</th> 
 							<th>USERNAME</th>
+							<th>PASSWORD</th>
 							<th>LEVEL</th>
 							<th>ACTION</th>
 							
@@ -116,6 +116,7 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 								</td>
 								
 								<td><b><?php echo $user["username"]; ?></b></td>
+								<td><b><?php echo $user["password"]; ?></b></td>
 								<td><b><?php echo $user["level"] == 1 ? "User" : "Admin"; ?></b></td>
 							
 								<td>
@@ -172,6 +173,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 							<input type="text" id="username" name="username" class="form-control addForm" required>
 						</div>
 						<div class="form-group">
+							<label for="password">Password</label>
+							<input type="text" id="password" name="password" class="form-control addForm" required>
+						</div>
+						<div class="form-group">
 							<label for="level">Level</label>
 							<select type="text" id="level" name="level" class="form-control addForm" required>
 								<option value="1">User</option>
@@ -202,6 +207,10 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 						<div class="form-group">
 							<label for="username">Username</label>
 							<input type="text" id="username_u" name="username" class="form-control userEditForm" required>
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input type="text" id="password_u" name="password" class="form-control userEditForm" required>
 						</div>
 						<div class="form-group">
 							<label for="level">Level</label>
