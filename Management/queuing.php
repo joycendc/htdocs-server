@@ -13,7 +13,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 ?>
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +32,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <link rel="stylesheet" type="text/css" href="./styles/style.css">
     <link rel="stylesheet" type="text/css" href="./styles/queuing.css">
 </head>
-
 <body>
     <?php
         include('./php/includes/navbar.php');
@@ -45,8 +43,6 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
         include('./php/includes/paymentqueue.php');
         ?>
     </div>
-
-    
     <script src="./js/jquery.js"></script>
     <script src="./js/main.js"></script>
 </body>
