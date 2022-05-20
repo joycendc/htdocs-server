@@ -72,7 +72,7 @@
 <div class="view">
     <img src="/API/images/logo.png"/>
     <h1>Download Kumpares Food Order and Queue App</h1>
-    <button><a href="/app-debugs.apk">Download</a></button>
+    <button><a href="/app-debug.apk">Download</a></button>
 </div>
 </body>
 </html>
