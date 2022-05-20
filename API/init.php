@@ -1,11 +1,11 @@
 <?php
-$db = "queueapp";
-$userdb = "root";
-$passdb = "";
-$host = "localhost";
+$db = 'kI4akVA6Mv';
+$userdb = 'kI4akVA6Mv';
+$passdb = 'eQV5AziqCQ';
+$host = 'remotemysql.com';
 
 $conn = mysqli_connect($host, $userdb, $passdb, $db);
 
-if(!$conn){
-    echo "Not Connected!";
+if (!$conn) {
+    echo 'Not Connected!';
 }
