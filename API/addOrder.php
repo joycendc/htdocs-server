@@ -32,8 +32,11 @@ if($stmt->num_rows > 0){
     if ($stmt->num_rows > 0) {
         $array = array(); 
         foreach ($orderarray as $row) { 
-            $array[] = "('" . $queue_id . "', '" . $customer_id . "', '" . $customer_name . "', '" . $row["name"] . "', '". $row["qty"] . "' ,'" . $row["price"] . "' ,'" . $row["total"] . "' ,'". $now . "', '". $note . "' , '" . $type . "', '" . $isSenior . "')"; 
-        }  
+            $array[] = "('" . $queue_id . "', '" . $customer_id . "', '" . $customer_name . "', '" . $row["d"] . "', '". $row["g"] . "' ,'" . $row["e"] . "' ,'" . $row["h"] . "' ,'". $now . "', '". $note . "' , '" . $type . "', '" . $isSenior . "')"; 
+        }
+        // foreach ($orderarray as $row) { 
+        //     $array[] = "('" . $queue_id . "', '" . $customer_id . "', '" . $customer_name . "', '" . $row["name"] . "', '". $row["qty"] . "' ,'" . $row["price"] . "' ,'" . $row["total"] . "' ,'". $now . "', '". $note . "' , '" . $type . "', '" . $isSenior . "')"; 
+        // } 
         $values = implode(", ", $array);
 
         $stmt = $conn->prepare("INSERT INTO orders (queue_id, customer_id, customer_name, item_name, qty, price, total, date, note, type, isSenior) VALUES {$values}"); 
@@ -52,9 +55,11 @@ if($stmt->num_rows > 0){
     }else{
         $array = array(); 
         foreach ($orderarray as $row) { 
-            $array[] = "('" . $queue_id . "', '" . $customer_id . "', '" . $customer_name . "', '" . $row["name"] . "', '". $row["qty"] . "' ,'" . $row["price"] . "' ,'" . $row["total"] . "' ,'". $now . "', '". $note . "' , '" . $type . "', '" . $isSenior . "')"; 
-        } 
-        
+            $array[] = "('" . $queue_id . "', '" . $customer_id . "', '" . $customer_name . "', '" . $row["d"] . "', '". $row["g"] . "' ,'" . $row["e"] . "' ,'" . $row["h"] . "' ,'". $now . "', '". $note . "' , '" . $type . "', '" . $isSenior . "')"; 
+        }
+        //  foreach ($orderarray as $row) { 
+        //     $array[] = "('" . $queue_id . "', '" . $customer_id . "', '" . $customer_name . "', '" . $row["name"] . "', '". $row["qty"] . "' ,'" . $row["price"] . "' ,'" . $row["total"] . "' ,'". $now . "', '". $note . "' , '" . $type . "', '" . $isSenior . "')"; 
+        // }  
         $values = implode(", ", $array);
 
         $stmt = $conn->prepare("INSERT INTO orders (queue_id, customer_id, customer_name, item_name, qty, price, total, date, note, type, isSenior) VALUES {$values}"); 
