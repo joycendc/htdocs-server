@@ -37,7 +37,7 @@
                                         class='fas fa-check-circle'></i>DONE</button></td>
                         </tr>
                         <?php
-                        $orders = $db->query('SET sql_mode = ''; SELECT id, note, item_name, price, qty, total, type FROM (SELECT note, item_name, price, SUM(qty) AS qty, SUM(total) AS total, type FROM orders WHERE customer_id=? GROUP BY item_name) orders;', $customer['customer_id'])->fetchAll();
+                        $orders = $db->query('SELECT id, note, item_name, price, qty, total, type FROM (SET sql_mode = ''; SELECT note, item_name, price, SUM(qty) AS qty, SUM(total) AS total, type FROM orders WHERE customer_id=? GROUP BY item_name) orders;', $customer['customer_id'])->fetchAll();
                         ?>
                     <tbody class="hide">
                         <tr class="rowhead note">

@@ -56,7 +56,7 @@
                             </td>
                         </tr>
                         <?php
-                        $orders = $db->query('SET sql_mode = ''; SELECT note, item_name, price, qty, total FROM (SELECT id, note, item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;', $customer['customer_id'])->fetchAll();
+                        $orders = $db->query('SET sql_mode = ''; SELECT note, item_name, price, qty, total FROM (SET sql_mode = ''; SELECT id, note, item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;', $customer['customer_id'])->fetchAll();
                         ?>
                     <tbody class="hide">
                         <tr class="rowhead note">
