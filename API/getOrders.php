@@ -6,7 +6,10 @@ if (mysqli_connect_errno()) {
 
 $customer_id = $_POST['customer_id'];
 
-$stmt = $conn->prepare('SET sql_mode = ''; SELECT item_name, price, qty, total FROM (SET sql_mode = ''; SELECT id, item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;');
+$st = $conn->prepare('SET sql_mode = '';');
+$st->execute();
+
+$stmt = $conn->prepare('SELECT item_name, price, qty, total FROM (SELECT id, item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;');
 $stmt->bind_param('s', $customer_id);
 $stmt->execute();
 $stmt->bind_result($item_name, $price, $qty, $total);

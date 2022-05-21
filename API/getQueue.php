@@ -4,7 +4,10 @@ if (mysqli_connect_errno()) {
     die('error ' . mysqli_connect_error());
 }
 
-$stmt = $conn->prepare('SET sql_mode = ''; SELECT queue_id, id, customer_id, customer_name, status FROM orders GROUP BY customer_id ORDER BY id;');
+$st = $conn->prepare('SET sql_mode = '';');
+$st->execute();
+
+$stmt = $conn->prepare('SELECT queue_id, id, customer_id, customer_name, status FROM orders GROUP BY customer_id ORDER BY id;');
 $stmt->execute();
 $stmt->bind_result($queue_id, $id, $customer_id, $customer_name, $status);
 

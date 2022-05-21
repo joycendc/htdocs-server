@@ -14,7 +14,11 @@
                 </thead>
             </table>
             <?php
-            $customers = $db->query('SET sql_mode = ''; SELECT id, date, customer_id, customer_name, status FROM orders WHERE status=0 GROUP BY customer_id ORDER BY id;')->fetchAll();
+
+            $st = $conn->prepare('SET sql_mode = '';');
+            $st->execute();
+
+            $customers = $db->query('SELECT id, date, customer_id, customer_name, status FROM orders WHERE status=0 GROUP BY customer_id ORDER BY id;')->fetchAll();
             ?>
             <div class="tablewrap">
                 <table>
@@ -37,7 +41,11 @@
                                         class='fas fa-check-circle'></i>DONE</button></td>
                         </tr>
                         <?php
-                        $orders = $db->query('SELECT id, note, item_name, price, qty, total, type FROM (SET sql_mode = ''; SELECT note, item_name, price, SUM(qty) AS qty, SUM(total) AS total, type FROM orders WHERE customer_id=? GROUP BY item_name) orders;', $customer['customer_id'])->fetchAll();
+
+                        $st = $conn->prepare('SET sql_mode = '';');
+                        $st->execute();
+                        
+                        $orders = $db->query('SELECT id, note, item_name, price, qty, total, type FROM (SELECT note, item_name, price, SUM(qty) AS qty, SUM(total) AS total, type FROM orders WHERE customer_id=? GROUP BY item_name) orders;', $customer['customer_id'])->fetchAll();
                         ?>
                     <tbody class="hide">
                         <tr class="rowhead note">

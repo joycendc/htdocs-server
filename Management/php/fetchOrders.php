@@ -5,7 +5,10 @@ require 'init.php';
     $unpaid = $db->query("SELECT id, customer_id, customer_name FROM orders WHERE status=0 GROUP BY customer_id ORDER BY id;")->fetchAll();
     */
 
-$orders = $db->query('SET sql_mode = ''; SELECT id, customer_id, customer_name, status FROM orders GROUP BY customer_id ORDER BY id;')->fetchAll();
+$st = $conn->prepare('SET sql_mode = '';');
+$st->execute();
+
+$orders = $db->query('SELECT id, customer_id, customer_name, status FROM orders GROUP BY customer_id ORDER BY id;')->fetchAll();
 
 $data = json_encode($orders);
 echo $data;
