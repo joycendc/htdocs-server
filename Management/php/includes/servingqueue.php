@@ -8,8 +8,8 @@
                     <tr>
                         <th class="sticky-header">Date</th>
                         <th class="sticky-header" colspan="2">Name</th>
-                        <th class="sticky-header">Paid</th>
-                        <th class="sticky-header">Remove</th>
+                        <th class="sticky-header">Status</th>
+                        <th class="sticky-header">Mark as Done</th>
                     </tr>
                 </thead>
             </table>
@@ -29,15 +29,7 @@
             
             $customers = $db->query('SELECT date, customer_id, customer_name, status FROM orders WHERE customer_id!=? AND status=1 GROUP BY customer_id ORDER BY id;', $current_cid)->fetchAll();
             ?>
-            <div class="overlay" id="dialog-container">
-                <div class="popup">
-                    <p class="popup_title"></p>
-                    <div class="text-right">
-                        <button class="dialog-btn btn-cancel" id="cancel">CANCEL</button>
-                        <button class="dialog-btn btn-primary" id="confirm">OK</button>
-                    </div>
-                </div>
-            </div>
+
 
             <div class="tablewrap">
                 <table>
@@ -57,18 +49,20 @@
                             }
                             ?>
                             </td>
-                            <td><button data-id="<?php echo $customer['customer_id']; ?>" name="remove" class="btnedit">Done</button>
+                            <td>
+                                <button data-id="<?php echo $customer['customer_id']; ?>" name="remove" class="btnedit">
+                                    <i class='fas fa-check-circle'></i>Done</button>
                             </td>
                         </tr>
                         <?php
                         
                         $db->query('SET sql_mode = ""');
                         
-                        $orders = $db->query('SELECT note, item_name, price, qty, total FROM (SELECT id, note, item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;', $customer['customer_id'])->fetchAll();
+                        $orders = $db->query('SELECT note, item_name, price, qty, total, type FROM (SELECT id, note, item_name, price, SUM(qty) AS qty, SUM(total) AS total, type FROM orders WHERE customer_id=? GROUP BY item_name) orders;', $customer['customer_id'])->fetchAll();
                         ?>
                     <tbody class="hide">
                         <tr class="rowhead note">
-                            <td colspan="5">--- <?php echo $orders[0]['note']; ?> ---</td>
+                            <td colspan="5"><?php echo $orders[0]['type'] === 1 ? 'DINE IN' : 'TAKE OUT'; ?> : <?php echo !empty($orders[0]['note']) ? $orders[0]['note'] : '---'; ?></td>
                         </tr>
                         <tr class="rowhead">
                             <td colspan="2"><?php echo 'Item'; ?></td>

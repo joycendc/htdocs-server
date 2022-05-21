@@ -84,9 +84,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
             $products = $db->query("SELECT i.id, i.name, i.description, i.price, i.url, i.cat_id, c.name AS cat FROM items i JOIN category c ON c.id = i.cat_id ORDER BY ID DESC LIMIT $start, $limit;")->fetchAll();
             
             $sql = $db->query('SELECT count(id) AS id FROM items')->fetchAll();
-            $allRecrods = $sql[0]['id'];
+            $allRecords = $sql[0]['id'];
             // Calculate total pages
-            $totalPages = ceil($allRecrods / $limit);
+            $totalPages = ceil($allRecords / $limit);
             
             // Prev + Next
             $prev = $page - 1;

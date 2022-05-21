@@ -8,8 +8,8 @@
                     <tr>
                         <th class="sticky-header">Date</th>
                         <th class="sticky-header" colspan="2">Name</th>
-                        <th class="sticky-header">Paid</th>
-                        <th class="sticky-header">Remove</th>
+                        <th class="sticky-header">Mark as Paid</th>
+                        <th class="sticky-header">Cancel Order</th>
                     </tr>
                 </thead>
             </table>
@@ -48,8 +48,8 @@
                             ?>
                             </td>
                             <td>
-                                <button data-id="<?php echo $customer['customer_id']; ?>" name="remove" class="btnedit">
-                                    <i class='fas fa-check-circle'></i>REMOVE</button>
+                                <button data-id="<?php echo $customer['customer_id']; ?>" name="remove" class="btncancel">
+                                    <i class='fas fa-times'></i>Cancel</button>
                             </td>
                         </tr>
                         <?php

@@ -35,6 +35,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     <script src="./js/jquery.js" defer></script>
     <script src="./js/main.js" defer></script>
 
+
 </head>
 
 <body>
@@ -47,6 +48,15 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
         include './php/includes/currentcustomer.php';
         include './php/includes/paymentqueue.php';
         ?>
+        <div class="overlay" id="dialog-container">
+            <div class="popup">
+                <p class="popup_title"></p>
+                <div class="text-right">
+                    <button class="dialog-btn btn-cancel" id="cancel">CANCEL</button>
+                    <button class="dialog-btn btn-primary" id="confirm">OK</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 </body>

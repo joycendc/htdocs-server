@@ -76,7 +76,6 @@ $(document).ready(function (e) {
 });
 
 $(".btnedit").click((e) => {
-  console.log("clicked edit");
   data = e.target.dataset.id;
 
   e.stopPropagation();
@@ -85,6 +84,49 @@ $(".btnedit").click((e) => {
   var title = document.querySelector(".popup_title");
 
   title.innerHTML = "Mark this customer as done ?";
+
+  overlayme.onclick = function () {
+    overlayme.style.display = "none";
+  };
+
+  /* A function to show the dialog window */
+  if (overlayme.style.display === "none") {
+    overlayme.style.display = "block";
+  } else {
+    overlayme.style.display = "none";
+  }
+
+  // If confirm btn is clicked , the function confim() is executed
+  document.getElementById("confirm").onclick = function () {
+    $.ajax({
+      type: "POST",
+      url: "./php/api.php",
+      data: { id: data, type: "remove" },
+      success: function () {
+        window.location.reload(1);
+      },
+      error: function () {
+        window.location.reload(1);
+      },
+    });
+    overlayme.style.display = "none";
+  };
+
+  // If cancel btn is clicked , the function cancel() is executed
+  document.getElementById("cancel").onclick = function () {
+    overlayme.style.display = "none";
+  };
+});
+
+$(".btncancel").click((e) => {
+  data = e.target.dataset.id;
+
+  e.stopPropagation();
+
+  var overlayme = document.getElementById("dialog-container");
+  var title = document.querySelector(".popup_title");
+
+  title.innerHTML = "Are you sure to cancel this order ?";
 
   overlayme.onclick = function () {
     overlayme.style.display = "none";
