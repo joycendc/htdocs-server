@@ -1,23 +1,24 @@
 <?php
 // require "./php/operation.php";
-require "./php/init.php";
+require './php/init.php';
 
 // Initialize the session
 session_start();
 
 // Check if the user is logged in, if not then redirect him to login page
-if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
-    header("location: ../index.php");
-    exit;
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    header('location: ../index.php');
+    exit();
 }
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" type="image/png" sizes="192x192"  href="../../src/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../src/android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../src/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="../../src/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../src/favicon-16x16.png">
@@ -32,18 +33,20 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
     <link rel="stylesheet" type="text/css" href="./styles/style.css">
     <link rel="stylesheet" type="text/css" href="./styles/queuing.css">
 </head>
+
 <body>
     <?php
-        include('./php/includes/navbar.php');
+    include './php/includes/navbar.php';
     ?>
     <div class="content">
         <?php
-        include('./php/includes/servingqueue.php');
-        include('./php/includes/currentcustomer.php');
-        include('./php/includes/paymentqueue.php');
+        include './php/includes/servingqueue.php';
+        include './php/includes/currentcustomer.php';
+        include './php/includes/paymentqueue.php';
         ?>
     </div>
     <script src="./js/jquery.js"></script>
     <script src="./js/main.js"></script>
 </body>
+
 </html>
