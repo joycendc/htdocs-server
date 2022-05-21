@@ -15,7 +15,7 @@
             </table>
             <?php
             
-            $conn->exec('SET sql_mode = ""');
+            $conn->query('SET sql_mode = ""');
             
             $customers = $db->query('SELECT id, date, customer_id, customer_name, status FROM orders WHERE status=0 GROUP BY customer_id ORDER BY id;')->fetchAll();
             ?>
@@ -41,7 +41,7 @@
                         </tr>
                         <?php
                         
-                        $conn->exec('SET sql_mode = ""');
+                        $conn->query('SET sql_mode = ""');
                         
                         $orders = $db->query('SELECT id, note, item_name, price, qty, total, type FROM (SELECT note, item_name, price, SUM(qty) AS qty, SUM(total) AS total, type FROM orders WHERE customer_id=? GROUP BY item_name) orders;', $customer['customer_id'])->fetchAll();
                         ?>

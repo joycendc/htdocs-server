@@ -7,5 +7,10 @@ $dbpass = 'eQV5AziqCQ';
 $dbhost = 'remotemysql.com';
 
 $conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
-$db = new db($dbhost, $dbuser, $dbpass, $dbname);
+
+if (!$conn) {
+    echo 'Not Connected!';
+} else {
+    $db = new db($dbhost, $dbuser, $dbpass, $dbname);
+}
 ?>
