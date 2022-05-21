@@ -19,6 +19,17 @@
             
             $customers = $db->query('SELECT id, date, customer_id, customer_name, status FROM orders WHERE status=0 GROUP BY customer_id ORDER BY id;')->fetchAll();
             ?>
+
+            <div class="overlay" id="dialog-container">
+                <div class="popup">
+                    <p class="popup_title"></p>
+                    <div class="text-right">
+                        <button class="dialog-btn btn-cancel" id="cancel">CANCEL</button>
+                        <button class="dialog-btn btn-primary" id="confirm">OK</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="tablewrap">
                 <table>
                     <tbody id="tbody">
@@ -36,14 +47,16 @@
                             }
                             ?>
                             </td>
-                            <td><button data-id="<?php echo $customer['customer_id']; ?>" name="remove" class="btnedit"><i
-                                        class='fas fa-check-circle'></i>DONE</button></td>
+                            <td>
+                                <button data-id="<?php echo $customer['customer_id']; ?>" name="remove" class="btnedit">
+                                    <i class='fas fa-check-circle'></i>REMOVE</button>
+                            </td>
                         </tr>
                         <?php
                         
                         $db->query('SET sql_mode = ""');
                         
-                        $orders = $db->query('SELECT id, note, item_name, price, qty, total, type FROM (SELECT note, item_name, price, SUM(qty) AS qty, SUM(total) AS total, type FROM orders WHERE customer_id=? GROUP BY item_name) orders;', $customer['customer_id'])->fetchAll();
+                        $orders = $db->query('SELECT note, item_name, price, qty, total, type FROM (SELECT note, item_name, price, SUM(qty) AS qty, SUM(total) AS total, type FROM orders WHERE customer_id=? GROUP BY item_name) orders;', $customer['customer_id'])->fetchAll();
                         ?>
                     <tbody class="hide">
                         <tr class="rowhead note">

@@ -76,6 +76,7 @@ $(document).ready(function (e) {
 });
 
 $(".btnedit").click((e) => {
+  console.log("clicked edit");
   data = e.target.dataset.id;
 
   e.stopPropagation();

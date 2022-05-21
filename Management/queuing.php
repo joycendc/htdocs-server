@@ -32,8 +32,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     <link rel="stylesheet" href="./styles/all.css">
     <link rel="stylesheet" type="text/css" href="./styles/style.css">
     <link rel="stylesheet" type="text/css" href="./styles/queuing.css">
-    <script src="./js/jquery.js"></script>
-    <script src="./js/main.js"></script>
+    <script src="./js/jquery.js" defer></script>
+    <script src="./js/main.js" defer></script>
 
 </head>
 
