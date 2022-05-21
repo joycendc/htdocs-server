@@ -16,18 +16,14 @@
             <?php
             $current_cid = 0;
             
-            $conn->query('SET sql_mode = ""');
-            
-            $current_customer = $db->query('SELECT id, customer_id, customer_name, date FROM orders WHERE status=1 GROUP BY customer_id ORDER BY id;')->fetchAll();
+            $current_customer = $db->query('SET sql_mode = ''; SELECT id, customer_id, customer_name, date FROM orders WHERE status=1 GROUP BY customer_id ORDER BY id;')->fetchAll();
             if (!empty($current_customer)) {
                 $current = [];
                 $current = $current_customer[0];
                 $current_cid = $current['customer_id'];
             }
             
-            $conn->query('SET sql_mode = ""');
-            
-            $customers = $db->query('SELECT date, customer_id, customer_name, status FROM orders WHERE customer_id!=? AND status=1 GROUP BY customer_id ORDER BY id;', $current_cid)->fetchAll();
+            $customers = $db->query('SET sql_mode = ''; SELECT date, customer_id, customer_name, status FROM orders WHERE customer_id!=? AND status=1 GROUP BY customer_id ORDER BY id;', $current_cid)->fetchAll();
             ?>
             <div class="overlay" id="dialog-container">
                 <div class="popup">
@@ -62,9 +58,7 @@
                         </tr>
                         <?php
                         
-                        $conn->query('SET sql_mode = ""');
-                        
-                        $orders = $db->query('SELECT note, item_name, price, qty, total FROM (SELECT id, note, item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;', $customer['customer_id'])->fetchAll();
+                        $orders = $db->query('SET sql_mode = ''; SELECT note, item_name, price, qty, total FROM (SELECT id, note, item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;', $customer['customer_id'])->fetchAll();
                         ?>
                     <tbody class="hide">
                         <tr class="rowhead note">

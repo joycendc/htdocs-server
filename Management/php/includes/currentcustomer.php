@@ -19,10 +19,10 @@
                 <?php      
             $total = 0;           
 
-            $conn->query('SET sql_mode = ""');
+            
 
 
-            $orders = $db->query("SELECT item_name, price, qty, total FROM (SELECT id, item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;", $current['customer_id'])->fetchAll(); 
+            $orders = $db->query("SET sql_mode = ''; SELECT item_name, price, qty, total FROM (SELECT id, item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;", $current['customer_id'])->fetchAll(); 
             foreach ($orders as $order): 
                 $total += $order['total'];
                 $getitem = $db->query("SELECT url FROM items WHERE name=?;", $order['item_name'])->fetchAll(); 
