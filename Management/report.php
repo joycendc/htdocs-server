@@ -88,10 +88,10 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                     </tr>
                 <?php 
 
-                
+                $conn->query('SET sql_mode = ""');
 
 
-                $orders = $db->query("SET sql_mode = ''; SELECT id, date, queue_id, customer_id, customer_name, SUM(total) AS 'total' FROM transactions GROUP BY DATE_FORMAT(date,'%Y-%M-%d');")->fetchAll();
+                $orders = $db->query("SELECT id, date, queue_id, customer_id, customer_name, SUM(total) AS 'total' FROM transactions GROUP BY DATE_FORMAT(date,'%Y-%M-%d');")->fetchAll();
 
                 if (!empty($orders)) {
                     foreach ($orders as $order) {
