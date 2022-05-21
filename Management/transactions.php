@@ -116,14 +116,14 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                             $page = (isset($_GET['page']) && is_numeric($_GET['page']) ) ? $_GET['page'] : 1;
                             $start = ($page - 1) * $limit;
 
-                            $st = $conn->prepare('SET sql_mode = '';');
-                            $st->execute();
+                            $conn->exec('SET sql_mode = ''');
+
 
                             $orders = $db->query("SELECT id, date, queue_id, customer_id, customer_name, SUM(total) AS 'total' FROM transactions GROUP BY DATE_FORMAT(date,'%Y-%M-%d %H:%i') LIMIT $start, $limit;")->fetchAll();
                             //$orders = $db->query("SELECT id, date, queue_id, customer_id, customer_name, SUM(total) AS 'total' FROM transactions GROUP BY DATE_FORMAT(date,'%Y-%M-%d %H:%i');")->fetchAll();
                             
-                            $st = $conn->prepare('SET sql_mode = '';');
-                            $st->execute();
+                            $conn->exec('SET sql_mode = ''');
+
 
                             $sql = $db->query("SELECT count(id) AS id FROM transactions GROUP BY DATE_FORMAT(date,'%Y-%M-%d %H:%i');")->fetchAll();
                             $allRecrods = sizeOf($sql);

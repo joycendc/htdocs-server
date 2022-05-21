@@ -88,9 +88,9 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
                     </tr>
                 <?php 
 
-                $st = $conn->prepare('SET sql_mode = '';');
-                $st->execute();
-                
+                $conn->exec('SET sql_mode = ''');
+
+
                 $orders = $db->query("SELECT id, date, queue_id, customer_id, customer_name, SUM(total) AS 'total' FROM transactions GROUP BY DATE_FORMAT(date,'%Y-%M-%d');")->fetchAll();
 
                 if (!empty($orders)) {
