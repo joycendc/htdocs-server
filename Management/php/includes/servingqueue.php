@@ -15,10 +15,9 @@
             </table>
             <?php
             $current_cid = 0;
-
-            $conn->exec('SET sql_mode = ''');
-
-
+            
+            $conn->exec('SET sql_mode = ""');
+            
             $current_customer = $db->query('SELECT id, customer_id, customer_name, date FROM orders WHERE status=1 GROUP BY customer_id ORDER BY id;')->fetchAll();
             if (!empty($current_customer)) {
                 $current = [];
@@ -26,9 +25,8 @@
                 $current_cid = $current['customer_id'];
             }
             
-            $conn->exec('SET sql_mode = ''');
-
-
+            $conn->exec('SET sql_mode = ""');
+            
             $customers = $db->query('SELECT date, customer_id, customer_name, status FROM orders WHERE customer_id!=? AND status=1 GROUP BY customer_id ORDER BY id;', $current_cid)->fetchAll();
             ?>
             <div class="overlay" id="dialog-container">
@@ -63,10 +61,9 @@
                             </td>
                         </tr>
                         <?php
-
-                        $conn->exec('SET sql_mode = ''');
-
-
+                        
+                        $conn->exec('SET sql_mode = ""');
+                        
                         $orders = $db->query('SELECT note, item_name, price, qty, total FROM (SELECT id, note, item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;', $customer['customer_id'])->fetchAll();
                         ?>
                     <tbody class="hide">
