@@ -22,7 +22,7 @@
                 $current_cid = $current['customer_id'];
             }
             
-            $customers = $db->query('SELECT date, customer_id, customer_name, status FROM orders WHERE customer_id!=? AND status=1 GROUP BY customer_id ORDER BY id;', $current_cid)->fetchAll();
+            $customers = $db->query('SELECT date, customer_id, customer_name, status FROM orders WHERE customer_id!=? AND status=1 GROUP BY id, customer_id ORDER BY id;', $current_cid)->fetchAll();
             ?>
             <div class="overlay" id="dialog-container">
                 <div class="popup">
@@ -56,7 +56,7 @@
                             </td>
                         </tr>
                         <?php
-                        $orders = $db->query('SELECT note, item_name, price, qty, total FROM (SELECT note, item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY item_name) orders;', $customer['customer_id'])->fetchAll();
+                        $orders = $db->query('SELECT note, item_name, price, qty, total FROM (SELECT id, note, item_name, price, SUM(qty) AS qty, SUM(total) AS total FROM orders WHERE customer_id=? GROUP BY id, item_name) orders;', $customer['customer_id'])->fetchAll();
                         ?>
                     <tbody class="hide">
                         <tr class="rowhead note">

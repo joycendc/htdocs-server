@@ -1,18 +1,18 @@
 <?php
-require_once("init.php");
-if(mysqli_connect_errno()){
-    die('error '.mysqli_connect_error());
+require_once 'init.php';
+if (mysqli_connect_errno()) {
+    die('error ' . mysqli_connect_error());
 }
 
-$stmt = $conn->prepare("SELECT queue_id, id, customer_id, customer_name, status FROM orders GROUP BY customer_id ORDER BY id;");
+$stmt = $conn->prepare('SELECT queue_id, id, customer_id, customer_name, status FROM orders GROUP BY id, customer_id ORDER BY id;');
 $stmt->execute();
 $stmt->bind_result($queue_id, $id, $customer_id, $customer_name, $status);
 
-$orders = array();
+$orders = [];
 
-while($stmt->fetch()){
-    $temp = array();
-    
+while ($stmt->fetch()) {
+    $temp = [];
+
     $temp['queue_id'] = $queue_id;
     $temp['id'] = $id;
     $temp['customer_id'] = $customer_id;
