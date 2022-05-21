@@ -36,6 +36,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/ajax.js"></script>
     <script src="./js/chart.min.js"></script>
+    <script src="./js/report.js"></script>
+
 
 </head>
 <style>
@@ -111,7 +113,6 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     <?php } else { ?>
     <h1 class="text-center">No access</h1>
     <?php } ?>
-    <script src="./js/report.js"></script>
 </body>
 
 </html>
